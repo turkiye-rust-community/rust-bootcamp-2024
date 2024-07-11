@@ -1,4 +1,4 @@
-use std::iter::repeat_with;
+use std::{fmt::Display, iter::repeat_with};
 
 use fastrand::alphanumeric;
 
@@ -13,10 +13,10 @@ pub enum TransactionStatus {
 #[derive(Clone)]
 pub struct Transaction {
     pub id: String,
-    sender_id: String,
-    receiver_id: String,
-    amount_moved: u64,
-    status: TransactionStatus,
+    pub sender_id: String,
+    pub receiver_id: String,
+    pub amount_moved: u64,
+    pub status: TransactionStatus,
 }
 
 impl Transaction {
@@ -31,11 +31,17 @@ impl Transaction {
         }
     }
 
-    pub fn processing(&mut self, processor_id: String) {
-        self.status = TransactionStatus::Processing(processor_id);
+    pub fn processing(&mut self, processor_id: &str) {
+        self.status = TransactionStatus::Processing(processor_id.into());
     }
 
-    pub fn complete(&mut self, processor_id: String) {
-        self.status = TransactionStatus::Complete(processor_id)
+    pub fn complete(&mut self, processor_id: &str) {
+        self.status = TransactionStatus::Complete(processor_id.into())
+    }
+}
+
+impl Display for Transaction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "User {} send ${} to User {}", self.sender_id, self.amount_moved, self.receiver_id)
     }
 }

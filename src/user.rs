@@ -4,6 +4,7 @@ use fastrand::alphanumeric;
 
 use crate::transaction::Transaction;
 
+#[derive(Clone)]
 pub struct User {
     pub account_id: String,
     balance: u64,
@@ -11,11 +12,11 @@ pub struct User {
 }
 
 impl User {
-    pub fn new() -> Self {
+    pub fn new(balance: u64) -> Self {
         let account_id: String = repeat_with(alphanumeric).take(10).collect();
         Self {
             account_id,
-            balance: 0,
+            balance,
             transactions: vec![],
         }
     }
@@ -23,14 +24,14 @@ impl User {
     pub fn push_tx(
         &mut self,
         amount: u64,
-        receiver_id: String,
+        receiver_id: &str,
         transaction_pool: &mut Vec<Transaction>,
     ) -> Result<(), String> {
         if amount > self.balance {
             return Err("Cannot transfer more than you have".into());
         };
 
-        let transaction = Transaction::new(&self.account_id, receiver_id, amount);
+        let transaction = Transaction::new(&self.account_id, receiver_id.to_string(), amount);
         self.transactions.push(transaction.clone());
         transaction_pool.push(transaction.clone());
         Ok(())
