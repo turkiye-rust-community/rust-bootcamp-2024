@@ -1,21 +1,38 @@
-struct Student {
-    isim: String,
-    yas: u8,
+struct Bank {
+    users: Vec<User>,
+    safe: u128,
+    fee: u8,
+    transactions: Vec<Transaction>,
 }
 
-impl Student {
-    fn print(&self) {
-        println!("Isim: {}, Yas: {}", self.isim, self.yas)
+struct User {
+    name: String,
+    account_id: String,
+    balance: u128,
+}
+
+impl User {
+    pub fn new(name: String, account_id: String, balance: u128) -> Self {
+        Self {
+            name,
+            account_id,
+            balance,
+        }
     }
-
-    // self
-    pub fn new(isim: String, yas: u8) -> Self {
-        Self { isim, yas }
+    pub fn add_balance(&mut self, amount: u32) {
+        self.balance = self.balance + amount as u128;
     }
-
 }
 
-fn main() {
-    let utku = Student::new("Utku".into(), 25);
-    utku.print();
+struct Transaction {
+    sender: User,
+    receiver: User,
+    amount: u32,
+    bank: Bank,
 }
+
+struct PaymentProcessor {
+    banks: Vec<Bank>,
+}
+
+fn main() {}
