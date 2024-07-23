@@ -30,6 +30,9 @@ struct Transaction {
     amount: u32,
     bank: Bank,
 }
+impl Transaction {
+    fn new() -Self {}
+}
 
 struct PaymentProcessor {
     banks: Vec<Bank>,
