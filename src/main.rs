@@ -1,38 +1,17 @@
-struct Bank {
-    users: Vec<User>,
-    safe: u128,
-    fee: u8,
-    transactions: Vec<Transaction>,
-}
+// src/main.rs
 
-struct User {
-    name: String,
-    account_id: String,
-    balance: u128,
-}
+mod bank;
+mod user;
+mod transaction;
 
-impl User {
-    pub fn new(name: String, account_id: String, balance: u128) -> Self {
-        Self {
-            name,
-            account_id,
-            balance,
-        }
-    }
-    pub fn add_balance(&mut self, amount: u32) {
-        self.balance = self.balance + amount as u128;
-    }
-}
-
-struct Transaction {
-    sender: User,
-    receiver: User,
-    amount: u32,
-    bank: Bank,
-}
+use bank::Bank;
+use user::User;
+use transaction::Transaction;
 
 struct PaymentProcessor {
     banks: Vec<Bank>,
 }
 
-fn main() {}
+fn main() {
+    //* Nothing here
+}
