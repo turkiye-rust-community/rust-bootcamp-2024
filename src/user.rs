@@ -1,5 +1,6 @@
 // src/user.rs
 
+#[derive(Clone)]
 pub struct User {
     pub name: String,
     pub account_id: String,

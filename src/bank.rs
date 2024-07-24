@@ -3,6 +3,7 @@
 use crate::transaction::Transaction;
 use crate::user::User;
 
+#[derive(Clone)] // Derive Clone trait
 pub struct Bank {
     pub users: Vec<User>,
     pub balance: u128,
@@ -23,5 +24,18 @@ impl Bank {
     // Method to add a user to the bank
     pub fn add_user(&mut self, user: User) {
         self.users.push(user);
+    }
+
+    // Method to list all users in the bank
+    pub fn list_users(&self) -> Vec<String> {
+        self.users
+            .iter()
+            .map(|user| {
+                format!(
+                    "Name: {}, Account ID: {}, Balance: {}",
+                    user.name, user.account_id, user.balance
+                )
+            })
+            .collect()
     }
 }

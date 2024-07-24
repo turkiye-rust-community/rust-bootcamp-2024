@@ -3,6 +3,7 @@
 use crate::bank::Bank;
 use crate::user::User;
 
+#[derive(Clone)]
 pub struct Transaction {
     pub sender: User,
     pub receiver: User,
