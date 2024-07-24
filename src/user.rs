@@ -18,4 +18,13 @@ impl User {
     pub fn add_balance(&mut self, amount: u32) {
         self.balance += amount as u128;
     }
+
+    pub fn transfer(&mut self, receiver: &mut User, amount: u32) -> Result<(), &'static str> {
+        if amount as u128 > self.balance {
+            return Err("Insufficient balance");
+        }
+        self.balance -= amount as u128;
+        receiver.add_balance(amount);
+        Ok(())
+    }
 }
