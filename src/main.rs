@@ -1,38 +1,33 @@
-struct Bank {
-    users: Vec<User>,
-    safe: u128,
-    fee: u8,
-    transactions: Vec<Transaction>,
+use bank::Bank;
+use r#enum::{zort, Test};
+use user::User;
+
+pub mod bank;
+pub mod r#enum;
+pub mod user;
+
+pub enum Status {
+    Waiting,
+    Processing,
+    Processed(String),
 }
 
-struct User {
-    name: String,
-    account_id: String,
-    balance: u128,
-}
-
-impl User {
-    pub fn new(name: String, account_id: String, balance: u128) -> Self {
-        Self {
-            name,
-            account_id,
-            balance,
-        }
-    }
-    pub fn add_balance(&mut self, amount: u32) {
-        self.balance = self.balance + amount as u128;
-    }
-}
-
-struct Transaction {
+pub struct Transaction {
     sender: User,
     receiver: User,
     amount: u32,
-    bank: Bank,
+    status: Status,
 }
 
-struct PaymentProcessor {
-    banks: Vec<Bank>,
+pub enum Fee {
+    Low,
+    Medium,
+    High,
 }
 
-fn main() {}
+fn main() {
+    let fee = Fee::Low;
+    let _bank = Bank::new("Bank of America".to_string(), fee, 900000000000000);
+    let kol2 = Test::Kol1(42);
+    zort(kol2);
+}
