@@ -1,0 +1,16 @@
+use std::{fmt::Display, ops::Add};
+
+// Function
+pub fn print_first<T: Display>(list: &[T]) {
+    println!("{}", list[0]);
+}
+
+// Enums
+
+pub fn aasfa() {
+    let zort: Option<u32> = None;
+    let number_vec = vec![22, 2, 3, 4];
+    print_first(&number_vec);
+}
+
+// Perfomans

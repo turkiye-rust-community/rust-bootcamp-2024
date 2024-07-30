@@ -8,17 +8,12 @@ pub struct Bank {
     transactions: Vec<Transaction>,
 }
 
-impl Bank {
-    pub fn new(name: String, fee: Fee, safe: u128) -> Self {
-        Self {
-            name,
-            users: vec![],
-            safe,
-            fee,
-            transactions: vec![],
-        }
-    }
-    pub fn process(&mut self, tx: Transaction) -> Result<(), String> {
+pub trait Process {
+    fn process(&mut self, tx: Transaction) -> Result<(), String>;
+}
+
+impl Process for Bank {
+    fn process(&mut self, tx: Transaction) -> Result<(), String> {
         let Transaction {
             sender: _,
             receiver: _,
@@ -41,6 +36,18 @@ impl Bank {
             Ok(())
         } else {
             return Err("Cannot process this transaction".to_string());
+        }
+    }
+}
+
+impl Bank {
+    pub fn new(name: String, fee: Fee, safe: u128) -> Self {
+        Self {
+            name,
+            users: vec![],
+            safe,
+            fee,
+            transactions: vec![],
         }
     }
 }
